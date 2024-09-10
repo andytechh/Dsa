@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Matemasie&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="design1"> <h2>Encryption and Decryption</h2>
+                <div class="enter">
+                <label for="message">  Enter text to encrypt:</label>
+                <input class="en" type="text" id="message" placeholder="Enter your message" >
+                <br>
+                <label for="shift">Enter shift value (number):</label>
+                <input class="en" type="number" id="shift" placeholder="Enter shift value">
+                </div>
+                
+                </div>
+               
+                <div class="container2">
+                    
+                    <div class="design2">
+                        <div class="button1">
+                          <button onclick="encrypt()">Encrypt</button>
+                         <h3>Encryption message:</h3>
+                            <p id="encryptedMessage"></p>  
+                        </div>
+                         
+                    </div>
+                    <div class="design3">
+                        <div class="button1">
+                              <button  onclick="decrypt()">Decrypt</button><br> 
+                    <h3>Decryption message:</h3>
+                    <p id="decryptedMessage"></p>
+                        </div>
+                      
+            
+                    </div>
+                </div>
+               
+        </div>
+        
+        <script>
+
+            let encryptedText = '';
+            function caesarCipher(str, shift){
+                return str.split('').map(char =>{let code= char.charCodeAt();
+
+                    if(code >= 65 && code <= 90){
+                        return String.fromCharCode(((code - 65 + shift) % 26 + 26)%26 + 65);
+
+                    }else if(code >= 97 && code <= 122){
+                        return String.fromCharCode(((code - 97 + shift) % 26 + 26)%26 + 97);
+                    }else {
+                        return char;
+                    }
+                }).join('');
+            }
+                function encrypt() {
+                    const message = document.getElementById('message').value;
+                    const shift = parseInt(document.getElementById('shift').value);
+                    encryptedText = caesarCipher(message, shift);
+                    document.getElementById('encryptedMessage').innerText = encryptedText;
+                    document.getElementById('decryptedMessage').innerText = '';
+                }
+                function decrypt(){
+                    const shift = parseInt(document.getElementById('shift').value);
+                    const decryptedMessage = caesarCipher(encryptedText, -shift);
+                    document.getElementById('decryptedMessage').innerText = decryptedMessage;
+                }
+
+        </script>
+
+    </body>
+</html>
